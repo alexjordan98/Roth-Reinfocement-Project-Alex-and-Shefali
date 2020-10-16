@@ -18,3 +18,10 @@ class Cell:
         self.P1Strat = P1Strat
         self.P2Strat = P2Strat
         self.Weight = Weight
+
+    #defaults constructor
+    def __init__(self):
+
+        self.P1Strat = 0
+        self.P2Strat = 0
+        self.Weight = 1

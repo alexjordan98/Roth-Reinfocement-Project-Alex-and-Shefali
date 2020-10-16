@@ -1,10 +1,11 @@
-
+import numpy as np
+import Cell
 
 #This class will represent the matrices that will be used
 class Matrix:
 
     name: str
-    columns:int
+    columns: int
     rows: int
 
     # symmetrical constructor
@@ -20,3 +21,23 @@ class Matrix:
         self.name = name
         self.columns = columns
         self.rows = rows
+
+    # Construct Matrix
+    def makeMatrix(self):
+
+        c = Cell()
+
+        y = self.columns
+        x = self.rows
+
+        l1 = []
+        l2 = []
+
+
+        while y > 0:
+            l1.append(c)
+        while x > 0:
+            l2.append(l1)
+
+
+
