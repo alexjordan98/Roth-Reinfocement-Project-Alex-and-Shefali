@@ -1,5 +1,5 @@
 import numpy as np
-import Cell
+import Cell.py
 
 #This class will represent the matrices that will be used
 class Matrix:
