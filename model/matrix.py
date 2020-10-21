@@ -39,5 +39,22 @@ class Matrix:
         while x > 0:
             l2.append(l1)
 
+        # change number of rows in matrix
+
+    def changeMatrixName(self, newName: str):
+
+        self.name = str
+
+    # change number of rows in matrix
+    def changeNumRows(self, newRows: int):
+
+        self.rows = newRows
+
+     # change number of columns in matrix
+    def changeNumCol(self, newCol: int):
+
+        self.columns = newCol
+
+
 
 

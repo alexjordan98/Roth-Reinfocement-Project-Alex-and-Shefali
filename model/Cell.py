@@ -27,3 +27,22 @@ class Cell:
     def changeP1(self, strat: int):
 
         self.P1Strat = strat
+
+
+   # change p2 strat
+    def changeP2(self, strat: int):
+
+        self.P2Strat = strat
+
+    # change weight of strategy
+    def changeWeight(self, newWeight: int):
+
+        self.Weight = newWeight
+
+   # change p1 and p2 strategies simultaneously
+
+    def changeP1AndP2(self, p1Strat: int, p2Strat: int):
+        self.P1Strat= p1Strat
+        self.P1Strat = p2Strat
+
+
