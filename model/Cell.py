@@ -1,27 +1,29 @@
-
 # This class will represent the cells in the matrix
 
 class Cell:
 
-    #Player 1 strategy
+    # Player 1 strategy
     P1Strat: int
 
-    #Player 2 strategy
+    # Player 2 strategy
     P2Strat: int
 
-    #Weight
+    # Weight
     Weight: int
 
-    #constructor
+    # constructor
     def __init__(self, P1Strat: int, P2Strat: int, Weight: int):
-
         self.P1Strat = P1Strat
         self.P2Strat = P2Strat
         self.Weight = Weight
 
-    #defaults constructor
+    # defaults constructor
     def __init__(self):
-
         self.P1Strat = 0
         self.P2Strat = 0
         self.Weight = 1
+
+    # change p1 strat
+    def changeP1(self, strat: int):
+
+        self.P1Strat = strat
