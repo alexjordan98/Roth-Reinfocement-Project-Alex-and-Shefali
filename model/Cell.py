@@ -28,8 +28,7 @@ class Cell:
 
         self.P1Strat = strat
 
-
-   # change p2 strat
+    # change p2 strat
     def changeP2(self, strat: int):
 
         self.P2Strat = strat
