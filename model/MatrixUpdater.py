@@ -1,6 +1,6 @@
 import quantumrandom
 from model import Matrix
-#This class crreates all the different itterations of the game matrix
+#This class creates all the different iterations of the game matrix
 class MatrixUpdater:
 
     startState: Matrix
@@ -23,5 +23,27 @@ class MatrixUpdater:
 
         self.startState = m
 
-    # Creating new iterations
-    def itter(self):
+    # Assigns each cell a consecutive range to more easily calculate probabilities
+    def setCellRange(self):
+        # i = number of rows
+        i = self.matrix.getl2.length()
+        j = 0
+        while j < i :
+           l =  self.matrix.getl2()[j]
+           j+=1
+           # k = number of columns
+           k = l.length()
+           m = 0
+           while m < k :
+               cell = l[m]
+               if m == 0:
+                   cell.setMin(0)
+                   cell.setMax(cell.getProb())
+               else :
+                   #set cells other than the first to their probability range
+                   lastCell = l[m-1]
+                   cell.setMin(lastCell.getMax())
+                   currentMin = cell.setMin(lastCell.getMax())
+                   cell.setMax(currentMin + cell.getProb())
+
+
