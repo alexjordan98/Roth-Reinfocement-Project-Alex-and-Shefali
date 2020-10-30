@@ -23,13 +23,66 @@ class MatrixUpdater:
 
         self.startState = m
 
+
+    # makes different instatiations of the matrix
+    def makeStates(self):
+
+
+        m1= self.startState
+        e1= m1.getEpsilon
+
+        self.states.add(m1)
+
+
+        u = quantumrandom.randfloat(0,1)
+
+        list1 = m1.getL2
+
+        # if no error
+        if u >e1:
+            self.setCellRange()
+
+            v = quantumrandom.randfloat(0,1)
+
+            for list in list1:
+                for cell1 in list:
+                    if v >= cell1.getMin() and v < cell1.getMax():
+
+                        currWeight = cell1.getWeight
+                        increase = cell1.getp1strat
+                        newWeight = currWeight + increase
+                        cell1.setWeight(newWeight)
+
+
+        # if error
+        if u <= e1:
+
+            x = m1.getRows
+            y = m1.getCols
+
+            cellX = quantumrandom.randint(0, x)
+            cellY = quantumrandom.randint(0, y)
+
+            l = m1.getL2()[cellX]
+            choiceCell = l[cellY]
+
+            currWeight = choiceCell.getWeight
+            increase = choiceCell.getp1strat
+            newWeight = currWeight + increase
+
+            choiceCell.setWeight(newWeight)
+
+
+
+    # updates all the weights according to 1-delta
+
     # Assigns each cell a consecutive range to more easily calculate probabilities
     def setCellRange(self):
         # i = number of rows
-        i = self.matrix.getl2.length()
+        i = self.startState.getl2.length()
         j = 0
         while j < i :
-           l =  self.matrix.getl2()[j]
+           l =  self.startState.getl2()[j]
            j+=1
            # k = number of columns
            k = l.length()
