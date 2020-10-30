@@ -98,8 +98,12 @@ class Matrix:
         self.delta = delt
 
     # get delta
-    def gerDelta(self):
+    def getDelta(self):
         return self.delta
+
+    #get l2
+    def getL2(self):
+        return self.l2;
 
 
 
