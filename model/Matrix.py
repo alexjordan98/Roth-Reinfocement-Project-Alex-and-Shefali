@@ -9,7 +9,6 @@ class Matrix:
     rows: int
     epsilon: float
     delta: float
-    l1 = []
     l2 = []
 
     # symmetrical constructor
@@ -38,10 +37,12 @@ class Matrix:
         y = self.columns
         x = self.rows
 
+        l1 = []
+
         while x > 0:
-            self.l1.append(c)
+            l1.append(c)
         while y > 0:
-            self.l2.append(self.l1)
+            self.l2.append(l1)
 
     # set the probabilities
     def initiateProbs(self):
