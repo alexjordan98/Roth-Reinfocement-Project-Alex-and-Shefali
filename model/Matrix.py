@@ -1,5 +1,4 @@
-import numpy as np
-from model import Cell
+from model.Cell import Cell
 
 #This class will represent the matrices that will be used
 class Matrix:
@@ -11,14 +10,14 @@ class Matrix:
     delta: float
     l2 = []
 
-    # symmetrical constructor
-    def __init__(self, name: str, columns: int, epsilon: float, delta: float):
-
-        self.name = name
-        self.columns = columns
-        self.rows = columns
-        self.epsilon = epsilon
-        self.delta = delta
+    # # symmetrical constructor
+    # def __init__(self, name: str, columns: int, epsilon: float, delta: float):
+    #
+    #     self.name = name
+    #     self.columns = columns
+    #     self.rows = columns
+    #     self.epsilon = epsilon
+    #     self.delta = delta
 
     # non-symmetrical constructor
     def __init__(self, name: str, columns: int, rows: int, epsilon: float, delta: float):
@@ -41,8 +40,10 @@ class Matrix:
 
         while x > 0:
             l1.append(c)
+            x -= 1
         while y > 0:
             self.l2.append(l1)
+            y -= 1
 
     # set the probabilities
     def initiateProbs(self):
@@ -87,7 +88,7 @@ class Matrix:
 
     # change episilon
     def setEpsilon(self, eps: int):
-        self. epsilon = eps
+        self.epsilon = eps
 
     # get epislon
     def getEpislon(self):

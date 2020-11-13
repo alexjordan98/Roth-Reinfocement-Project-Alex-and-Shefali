@@ -1,5 +1,6 @@
+
 import quantumrandom
-from model import Matrix
+from model.Matrix import Matrix
 from model import Cell
 
 
@@ -20,13 +21,18 @@ class MatrixUpdater:
 
         self.iterations = 10
 
-        m = Matrix("default", 10, 0.0, 0.0)
+        m = Matrix("default", 4, 4, 0.0, 0.0)
         m.makeMatrix()
 
         self.startState = m
 
+    # get iterations
+    def getIterations(self):
 
-    # updates matrix accorting to umber of itterations
+        return self.iterations
+
+
+    # updates matrix according to number of iterations
     def itter(self, m1: Matrix):
 
 
