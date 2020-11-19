@@ -9,6 +9,7 @@ class MatrixUpdater:
     startState: Matrix
     iterations: int
     states = []
+    totalWeight: int
 
     # Make whatever kind of iterator or matrix you want
     def __init__(self, startState: Matrix, iterations: int):
@@ -20,6 +21,7 @@ class MatrixUpdater:
     def __init__(self):
 
         self.iterations = 10
+        self.totalWeight = 0
 
         m = Matrix("default", 4, 4, 0.0, 0.0)
         m.makeMatrix()
@@ -31,6 +33,15 @@ class MatrixUpdater:
 
         return self.iterations
 
+    # get startState matrix
+    def getStartState(self):
+        return self.startState
+
+    # get total weight, weight of cell on last iteration
+    def getTotalWeight(self):
+
+        return self.totalWeight
+
 
     # updates matrix according to number of iterations
     def itter(self, m1: Matrix):
@@ -39,13 +50,15 @@ class MatrixUpdater:
 
         i = 0
 
-        while i < self.iterations:
+        while i <= self.iterations:
             self.states.append(m1)
-            self.makeStates(m1)
+            self.makeStates(m1, i)
             i += 1
 
+
+
     # updates the matrix once
-    def makeStates(self, m1: Matrix):
+    def makeStates(self, m1: Matrix, i: int):
 
         e1 = m1.getEpsilon
         m1.makeMatrix()
@@ -77,10 +90,17 @@ class MatrixUpdater:
                         increase = cell1.getp1strat
                         newWeight = currWeight + increase
                         cell1.setWeight(newWeight)
+                        # sets total weight if i is on last iteration meaning it is on the max amount of games
+                        if i == self.getIterations:
+                            self.totalWeight = cell1.getWeight
                     else:
                         w = cell1.getWeight()
 
                         cell1.setWeight(w * delt)
+                        # sets total weight if i is on last iteration meaning it is on the max amount of games
+                        if i == self.getIterations:
+                            self.totalWeight = cell1.getWeight
+
 
         # if error
         if u <= e1:
@@ -106,6 +126,9 @@ class MatrixUpdater:
 
 
             choiceCell.setWeight(newWeight)
+            # sets total weight if i is on last iteration meaning it is on the max amount of games
+            if i == self.getIterations:
+                self.totalWeight = choiceCell.getWeight
 
 
 
