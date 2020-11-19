@@ -86,12 +86,12 @@ class Matrix:
 
         return self.columns
 
-    # change episilon
+    # change epsilon
     def setEpsilon(self, eps: int):
         self.epsilon = eps
 
-    # get epislon
-    def getEpislon(self):
+    # get epsilon
+    def getEpsilon(self):
         return self.epsilon
 
     # change delta
