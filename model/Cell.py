@@ -1,38 +1,36 @@
 import quantumrandom
+import dataclasses
+
 
 # This class will represent the cells in the matrix
+#@dataclasses.dataclass(frozen=True)
 class Cell:
-
     # Player 1 strategy
-    P1Strat: int
+    P1Strat: float
 
     # Player 2 strategy
-    P2Strat: int
-
-    # Weight
-    Weight: int
+    P2Strat: float
 
     # Probability
     Probability: float
 
     # min, lower end of range of probability
-    Min : float
+    Min: float
 
     # max, higher end of range of range probability
-    Max : float
+    Max: float
 
 
     # constructor
-    def __init__(self, P1Strat: int, P2Strat: int, Weight: int, Probability: float, Min : float, Max : float):
+    def __init__(self, P1Strat: float, P2Strat: float, Probability: float, Min: float, Max: float):
         self.P1Strat = P1Strat
         self.P2Strat = P2Strat
-        self.Weight = Weight
         self.Probability = Probability
-        self.Min = Min;
-        self.Max = Max;
+        self.Min = Min
+        self.Max = Max
 
     # defaults constructor
-    def __init__(self):
+    def setdDefault(self):
         self.P1Strat = 0
         self.P2Strat = 0
         self.Min = 0;
@@ -60,51 +58,38 @@ class Cell:
 
         return self.P2Strat
 
-    # change weight of strategy
-    def setWeight(self, newWeight: int):
-
-        self.Weight = newWeight
-
-    # get weight strat
-    def getWeight(self):
-
-        return self.Weight
-
     # set minimum range value for probability
     def setMin(self, newMin: float):
 
-        return newMin;
+        self.Min = newMin
 
     # set maximum range value for probability
     def setMax(self, newMax: float):
-        return newMax;
+        self.Max = newMax
 
     # get maximum value for probability range
     def getMax(self):
 
-        return self.Max;
+        return self.Max
 
     # get maximum value for probability range
     def getMin(self):
 
-            return self.Min;
-
-
-
-
+            return self.Min
 
     # change p1 and p2 strategies simultaneously
     def setP1AndP2(self, p1Strat: int, p2Strat: int):
         self.P1Strat= p1Strat
         self.P1Strat = p2Strat
 
-    # change weight to reflect new total weight
-    def createProbabilitiey(self, totalWeight: int):
-        self.Probability = float(self.Weight / totalWeight)
 
     # get probability
     def getProb(self):
         return self.Probability
+
+    # set probability
+    def setProb(self, p: float):
+        self.Probability = p
 
 
 
