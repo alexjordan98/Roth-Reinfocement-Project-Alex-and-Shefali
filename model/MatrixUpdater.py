@@ -67,7 +67,9 @@ class MatrixUpdater:
         m2.setEpsilon(m1.getEpsilon())
 
         m2.setDelta(m1.getDelta())
-        m2.setL2(m1.getL2())
+
+        newl2 = copy.copy(m1.getL2())
+        m2.setL2(newl2)
 
         newp1 = copy.copy(m1.getp1Weights())
         newp2 = copy.copy(m1.getp2Weights())
