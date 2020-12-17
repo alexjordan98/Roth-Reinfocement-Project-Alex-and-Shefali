@@ -28,7 +28,7 @@ class MatrixUpdater:
         i = 0
 
         for i in range(self.iterations):
-            toadd = Matrix("m" + str(i), 10, 10, 0, 1, [], [], [])
+            toadd = Matrix("M" + str(i +1), 10, 10, 0, 1, [], [], [])
             print(i)
 
             if i != 0:

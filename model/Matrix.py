@@ -76,6 +76,7 @@ class Matrix:
             #print(i)
 
             while j < self.columns:
+                #print(self.l2)
 
 
                 p1prob = self.p1Weights[i] / totalP1
@@ -102,7 +103,7 @@ class Matrix:
         self.name = newName
 
     # change name of matrix
-    def getName(self, newName: str):
+    def getName(self):
         return self.name
 
     # change number of rows in matrix
