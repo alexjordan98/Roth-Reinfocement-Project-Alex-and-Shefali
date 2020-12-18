@@ -1,5 +1,8 @@
 import tkinter as tk
-from tkinter import filedialog
+from tkinter import filedialog, CENTER, NW, HORIZONTAL
+from tkinter.ttk import Progressbar
+
+from PIL import ImageTk, Image
 
 from colour import Color
 from Controler.ExcelController import ExcelController
@@ -14,34 +17,32 @@ updaterList = []
 m4 = Matrix("m0", 0, 0, 0, 0, [], l1, l2)
 mUpdater = MatrixUpdater(10, updaterList)
 
-# m4.makeMatrix()
-
-# updaterList contains states
-# mUpdater.itter(m4)
-
-# mTotalWeight = mUpdater.getTotalWeight()
 root = tk.Tk()
 height = 1500
 width = 1500
 heightMap = 500
 widthMap = 500
 
-
 canvas = tk.Canvas(root, height=height, width=width)
 
+# legend for heat map
+global img
+scalePath = "/Users/shefalisingh/Desktop/phil_2001_python/Roth-Reinfocement-Project-Alex-and" \
+            "-Shefali/view/scalelegend.jpeg"
+img = Image.open(scalePath)
+imgResize = img.resize((200, 400), Image.ANTIALIAS)
+legend = ImageTk.PhotoImage(imgResize)
+label1 = tk.Label(image=legend)
+label1.place(relx=.5, rely=.2)
 
-
-#print("this is of size " + str(len(listOfColorMatrix)))
-#print(listOfColorMatrix)
-
-# graphically prints heat map to a colored grid
-
+label1.image = legend
 
 # text area
 
 instructionsLabel = tk.Label(root, text="Pick your game and parameters!")
 instructionsLabel.place(relx=.6, rely=0)
 
+# error
 errorLabel = tk.Label(root, text="Error rate (default 0)")
 errorTextArea = tk.Entry(root, width=5)
 errorLabel.place(relx=.6, rely=.1)
@@ -53,7 +54,7 @@ def getError():
     else:
         return float(error)
 
-
+# delta
 deltaLabel = tk.Label(root, text="Discount rate/delta factor (default 0)")
 deltaTextArea = tk.Entry(root, width=5)
 deltaLabel.place(relx=.6, rely=.2)
@@ -65,22 +66,20 @@ def getDelta():
     else:
         return float(delta)
 
-
+#number of games
 gamesPlayedLabel = tk.Label(root, text="Games played (default 10)")
 gamesPlayedTextArea = tk.Entry(root, width=5)
 gamesPlayedLabel.place(relx=.6, rely=.3)
 gamesPlayedTextArea.place(relx=.6, rely=.35)
 def getGamesPlayed():
     gp = gamesPlayedTextArea.get()
-    print(gp)
     if gp == "":
         return int(10)
     else:
-        print("this is number of games" + gp)
         return int(gp)
 
 
-
+#payoffs/weights
 payoffInstructionLabel = tk.Label(root, text="Input weights. Input payoffs. Please enter payoffs of player "
                                              "\n 1 and player 2, separated by a comma (no spaces) ")
 payoffInstructionLabel.place(relx=.6, rely=.4)
@@ -88,6 +87,7 @@ payoffInstructionLabel.place(relx=.6, rely=.4)
 matrixFrame = tk.Frame(root, height=height / 4, width=height / 5, bg="light blue")
 matrixFrame.place(relx=.6, rely=.45)
 
+# number of rows
 rowsLabel = tk.Label(root, text="Input number of rows:")
 rowsText = tk.Entry(root, width=5)
 rowsLabel.place(relx=.85, rely=.5)
@@ -95,12 +95,12 @@ rowsText.place(relx=.85, rely=.55)
 
 def getUserRows():
     rows = rowsText.get()
-    print(rows)
     if rows == "":
         return 0
     else:
         return int(rowsText.get())
 
+# number of cols
 colsLabel = tk.Label(root, text="Input number of columns:")
 colsText = tk.Entry(root, width=5)
 colsLabel.place(relx=.85, rely=.6)
@@ -108,36 +108,36 @@ colsText.place(relx=.85, rely=.65)
 
 def getUserCols():
     cols = colsText.get()
-    print(cols)
     if cols == "":
         return 0
     return int(colsText.get())
 
 
-
+# import xsl
 def ExcelControllerExport(path: str):
 
     cont = ExcelController()
 
     m0 = cont.import_excel(path)
 
+    last = (path.rindex("/")) + 1
 
-    s = path[0: len(path) - 9]
+    s = path[0: last]
 
     cont.export_excel(s, m0)
 
 
 
 def fileOpen():
-    filename = filedialog.askopenfilename(initialdir="/", title="Select file")
+    filename = filedialog.askopenfilename(initialdir="/", title="Select file", filetypes=[("xls files,", "*.xls")])
     ExcelControllerExport(filename)
 
 
-importButton = tk.Button(matrixFrame, text="Import CSV", height=2, width=11,
+importButton = tk.Button(matrixFrame, text="Import XLS", height=2, width=11,
                          command=lambda: fileOpen())
 importButton.place(relx=.6, rely=.9)
 
-# add text boxes to array
+# add text boxes to array so that information can be obtained later by iterating through this array
 labelArray = []
 
 l1 = tk.Text(matrixFrame, height=2, width=5)
@@ -219,7 +219,6 @@ labelArray.append(l25)
 
 
 # places text entries in grid format
-#l1.place(relx=.2, rely=.02)
 l2.place(relx=.35, rely=.02)
 l3.place(relx=.5, rely=.02)
 l4.place(relx=.65, rely=.02)
@@ -250,35 +249,19 @@ l23.place(relx=.5, rely=.7)
 l24.place(relx=.65, rely=.7)
 l25.place(relx=.8, rely=.7)
 
+# slider that will be used to view heatmap at different stages of iterations
 slider = tk.Scale(root)
-# delta = float(0)
-# epsilon = float(0)
-# row = 0
-# row = 0
-# p1weight = []
-# p2weight = []
-# global actualMatrix
-# actualMatrix = ("M1", 0, 0, epsilon, delta, [[]], p1weight, p2weight)
-# amUpdater = MatrixUpdater(10, [])
 
 
+# graphically prints heat map to a colored grid, called when slider is moved
 
 def getIterationsFromSlider(self):
     global slider
     global mUpdater
 
-    curIteration = int(slider.get() - 1)
-    # print(curIteration)
-    #colorMatrix = makeListofColorMatrix(numGames)[curIteration]
-    #colorMatrix =
-    # print(cm[int(slider.get() - 1)])
-    print("at least ne 10 but maybe 15" + str(mUpdater.getIterations()))
     cm = makeListofColorMatrix(mUpdater.getIterations())
     rowsColor, colsColor = len(cm[int(slider.get() - 1)]), len(cm[int(slider.get() - 1)][0])
-    print(rowsColor)
-    print(colsColor)
     rect_width, rect_height = widthMap // rowsColor, heightMap // colsColor
-    print(cm[int(slider.get() - 1)])
     for y, row in enumerate(cm[int(slider.get() - 1)]):
         for x, color in enumerate(row):
             x0, y0 = x * rect_width, y * rect_height
@@ -286,7 +269,67 @@ def getIterationsFromSlider(self):
             canvas.create_rectangle(x0, y0, x1, y1, fill=color, width=0)
 
 
+# progress bar
+
+progress = Progressbar(root, orient=HORIZONTAL,
+                           length=100, mode='indeterminate')
+# Function responsible for the updation
+# of the progress bar value
+def bar():
+
+
+    import time
+    progress['value'] = 20
+    root.update_idletasks()
+    time.sleep(0.5)
+
+    progress['value'] = 40
+    root.update_idletasks()
+    time.sleep(0.5)
+
+    progress['value'] = 50
+    root.update_idletasks()
+    time.sleep(0.5)
+
+    progress['value'] = 60
+    root.update_idletasks()
+    time.sleep(0.5)
+
+    progress['value'] = 80
+    root.update_idletasks()
+    time.sleep(0.5)
+
+    progress['value'] = 100
+    root.update_idletasks()
+    time.sleep(0.5)
+
+    progress['value'] = 80
+    root.update_idletasks()
+    time.sleep(0.5)
+
+    progress['value'] = 60
+    root.update_idletasks()
+    time.sleep(0.5)
+
+    progress['value'] = 50
+    root.update_idletasks()
+    time.sleep(0.5)
+
+    progress['value'] = 40
+    root.update_idletasks()
+    time.sleep(0.5)
+
+    progress['value'] = 20
+    root.update_idletasks()
+    time.sleep(0.5)
+    progress['value'] = 0
+
+    progress.place(relx=.85, rely=.8)
+
+
 # submit button to gather user inputted payoffs
+# this adds the desired weights and payoffs to a matrix,
+# as well as creating the slider based on the user inputted number of games
 def submitPayoffs():
     global m4
     global mUpdater
@@ -295,11 +338,9 @@ def submitPayoffs():
     rows = getUserRows()
     cols = getUserCols()
     iterations = getGamesPlayed()
-    print("gp" + str(getGamesPlayed()))
     m4.setDelta(delta)
     m4.setEpsilon(epsilon)
     mUpdater.setIterations(iterations)
-    print("i hope this is 15 " + str(mUpdater.getIterations()))
 
     i = 1
     p2weightlist = []
@@ -350,25 +391,24 @@ def submitPayoffs():
 
 
 
+# button, calls function above when clicked
 submitButton = tk.Button(root, height=1, width=10, text="Submit", activebackground="blue",
-                         command=lambda: [submitPayoffs()])
+                         command=lambda: [submitPayoffs(), bar()])
 submitButton.place(relx=.65, rely=.9)
 
+# number of games user would like
 numGames = mUpdater.getIterations()
-# mUpdater.itter(m4)
-# matrix = mUpdater.states[0]
-# matrixArray = matrix.getL2()
-# matrixCol = matrix.getCols()
-# matrixRow = matrix.getRows()
 
+# creates a list of 100 colors based on gradient, then converts decimal probability to color
+# by making it an index in that color list
 def probToHex(prob : float):
     lightBlue = Color("#CDD9EE")
     darkBlue = Color("#02235B")
     colors = list(lightBlue.range_to(darkBlue, 101))
     probIndex = int(round(prob, 2) * 100)
-    print("this is prob" + str(probIndex))
     return colors[probIndex]
 
+# makes single matrix with colors
 def makeColorMatrix(matrixCol : int, matrixRow : int, matrixArray : []):
     colorMatrix = []
     for i in range(matrixRow):
@@ -381,10 +421,10 @@ def makeColorMatrix(matrixCol : int, matrixRow : int, matrixArray : []):
     return colorMatrix
 
 
-# Creates heat map of cells based on weights
+# makes number of games amount of matrices with colors, essentially a list that has numGames length of
+# what the above function makes
 def makeListofColorMatrix(numGames : int):
     listOfColorMatrix = []
-    #global mUpdater
     for k in range(numGames):
         kthMatrix = mUpdater.states[k]
         matrixArray = kthMatrix.getL2()
@@ -393,16 +433,10 @@ def makeListofColorMatrix(numGames : int):
         listOfColorMatrix.append(makeColorMatrix(matrixCol, matrixRow, matrixArray))
     return listOfColorMatrix
 
-def makeWithSliderMax():
-    print(str(mUpdater.getIterations()))
-    cm = makeListofColorMatrix(mUpdater.getIterations())
-    print("length is " + str(len(cm)))
 
 
 
-
-
-
+# final GUI necessities
 canvas.place(relx=0, rely=0)
 root.title("Roth-Erev Reinforcement")
 root.mainloop()
