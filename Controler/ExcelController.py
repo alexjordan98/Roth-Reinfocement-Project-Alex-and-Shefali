@@ -9,10 +9,6 @@ from model.MatrixUpdater import MatrixUpdater
 class ExcelController:
 
 
-
-
-
-
     def export_excel(self, export_path: str, m: MatrixUpdater):
 
         names = []
@@ -96,42 +92,3 @@ class ExcelController:
 
 
         return updater
-
-
-
-
-
-
-
-#
-#
-# def main():
-#     l1 = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-#     l2 = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-#
-#     updater3 = MatrixUpdater(20, [])
-#
-#     con = ExcelController(updater3)
-#
-#     m4 = con.import_excel("C:/Users/George/Desktop/test.xls")#Matrix("M1", 10, 10, 0.5, 0.1, [], l1, l2)
-#
-#     updater3.itter(m4)
-#
-#
-#     con.export_excel("C:/Users/George/Desktop/")
-#
-#
-# if __name__ == "__main__":
-#        main()
-#
-
-
-
-
-
-
-
-
-
-
-
