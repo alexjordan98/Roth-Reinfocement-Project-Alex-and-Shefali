@@ -8,21 +8,18 @@ from model.MatrixUpdater import MatrixUpdater
 
 class ExcelController:
 
-    Updater: MatrixUpdater
-
-    def __init__(self, Updater: MatrixUpdater):
-
-        self.Updater = Updater
 
 
 
-    def export_excel(self, export_path: str):
+
+
+    def export_excel(self, export_path: str, m: MatrixUpdater):
 
         names = []
         weights_lis = []
-        l = list(self.Updater.states)
+        l = list(m.states)
 
-        for i in range(self.Updater.iterations):
+        for i in range(m.iterations):
 
             name = l[i].getName()
             names.append("P1 Weights "+name)
@@ -43,11 +40,9 @@ class ExcelController:
         fr.to_excel(export_path +"output.xlsx", index = False)
 
 
-    o = 0
 
     def import_excel(self, import_path: str):
 
-        self.o = 1
 
 
         df = pandas.read_excel(import_path)
@@ -60,6 +55,9 @@ class ExcelController:
         eps = float(epsilon[0])
         delts = df["delta"].tolist()
         delt = float(delts[0])
+        its = df["iterations"].tolist()
+        iters = int(its[0])
+
 
         p1 = df["p1weights"].tolist()
         p2 = df["p2weights"].tolist()
@@ -92,7 +90,12 @@ class ExcelController:
             x+=1
 
         m1 = Matrix("M1", col, row, eps, delt, l2, p1, p2)
-        return m1
+
+        updater = MatrixUpdater(iters, [])
+        updater.itter(m1)
+
+
+        return updater
 
 
 
@@ -100,27 +103,27 @@ class ExcelController:
 
 
 
-
-
-def main():
-    l1 = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-    l2 = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-
-    updater3 = MatrixUpdater(20, [])
-
-    con = ExcelController(updater3)
-
-    m4 = con.import_excel("C:/Users/George/Desktop/test.xls")#Matrix("M1", 10, 10, 0.5, 0.1, [], l1, l2)
-
-    updater3.itter(m4)
-
-
-    con.export_excel("C:/Users/George/Desktop/")
-
-
-if __name__ == "__main__":
-       main()
-
+#
+#
+# def main():
+#     l1 = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+#     l2 = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+#
+#     updater3 = MatrixUpdater(20, [])
+#
+#     con = ExcelController(updater3)
+#
+#     m4 = con.import_excel("C:/Users/George/Desktop/test.xls")#Matrix("M1", 10, 10, 0.5, 0.1, [], l1, l2)
+#
+#     updater3.itter(m4)
+#
+#
+#     con.export_excel("C:/Users/George/Desktop/")
+#
+#
+# if __name__ == "__main__":
+#        main()
+#
 
 
 
