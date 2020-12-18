@@ -8,10 +8,10 @@ from model.Matrix import Matrix
 from model.Cell import Cell
 
 # Some important variables
-l1 = [1, 1, 1, 1, 1]
-l2 = [1, 1, 1, 1, 1]
+l1 = []
+l2 = []
 updaterList = []
-m4 = Matrix("m0", 4, 4, 0.2, 0.1, [], l1, l2)
+m4 = Matrix("m0", 0, 0, 0, 0, [], l1, l2)
 mUpdater = MatrixUpdater(10, updaterList)
 
 # m4.makeMatrix()
@@ -261,7 +261,10 @@ def getIterationsFromSlider(self):
     print("at least ne 10 but maybe 15" + str(mUpdater.getIterations()))
     cm = makeListofColorMatrix(mUpdater.getIterations())
     rowsColor, colsColor = len(cm[int(slider.get() - 1)]), len(cm[int(slider.get() - 1)][0])
+    print(rowsColor)
+    print(colsColor)
     rect_width, rect_height = widthMap // rowsColor, heightMap // colsColor
+    print(cm[int(slider.get() - 1)])
     for y, row in enumerate(cm[int(slider.get() - 1)]):
         for x, color in enumerate(row):
             x0, y0 = x * rect_width, y * rect_height
@@ -338,11 +341,11 @@ submitButton = tk.Button(root, height=1, width=10, text="Submit", activebackgrou
 submitButton.place(relx=.65, rely=.9)
 
 numGames = mUpdater.getIterations()
-mUpdater.itter(m4)
-matrix = mUpdater.states[0]
-matrixArray = matrix.getL2()
-matrixCol = matrix.getCols()
-matrixRow = matrix.getRows()
+# mUpdater.itter(m4)
+# matrix = mUpdater.states[0]
+# matrixArray = matrix.getL2()
+# matrixCol = matrix.getCols()
+# matrixRow = matrix.getRows()
 
 def probToHex(prob : float):
     lightBlue = Color("#CDD9EE")
@@ -354,9 +357,9 @@ def probToHex(prob : float):
 
 def makeColorMatrix(matrixCol : int, matrixRow : int, matrixArray : []):
     colorMatrix = []
-    for i in range(matrixCol):
+    for i in range(matrixRow):
         colorMatrixv2 = []
-        for j in range(matrixRow):
+        for j in range(matrixCol):
             curProb = matrixArray[i][j].getProb()
             colorMatrixv2.append(probToHex(curProb))
         colorMatrix.append(colorMatrixv2)
