@@ -269,5 +269,3 @@ class MatrixUpdater:
     def getTotalWeight(self):
 
         return self.totalWeight
-
-
