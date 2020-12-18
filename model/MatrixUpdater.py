@@ -68,8 +68,10 @@ class MatrixUpdater:
 
         m2.setDelta(m1.getDelta())
 
-        newl2 = copy.copy(m1.getL2())
+        newl2 = copy.deepcopy(m1.getL2())
+        print(newl2)
         m2.setL2(newl2)
+
 
         newp1 = copy.copy(m1.getp1Weights())
         newp2 = copy.copy(m1.getp2Weights())
@@ -78,6 +80,21 @@ class MatrixUpdater:
         m2.setp2Weights(newp2)
 
         #return m2
+
+    # copies a Matrix as in a list like this [][]
+    def matrixHelp(self, mat: List[List[Cell]]):
+
+        l2 = []
+
+        for i in range(len(mat)):
+            l1 = mat[i]
+            l3 = []
+            for j in range(len(l1)):
+                c = copy.copy(l1[j])
+                l3.append(c)
+
+
+
 
 
     # updates the matrix once

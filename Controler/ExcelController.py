@@ -43,7 +43,12 @@ class ExcelController:
         fr.to_excel(export_path +"output.xlsx", index = False)
 
 
+    o = 0
+
     def import_excel(self, import_path: str):
+
+        self.o = 1
+
 
         df = pandas.read_excel(import_path)
 
