@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import filedialog
 
 from colour import Color
-
+from Controler.ExcelController import ExcelController
 from model.MatrixUpdater import MatrixUpdater
 from model.Matrix import Matrix
 from model.Cell import Cell
@@ -114,9 +114,23 @@ def getUserCols():
     return int(colsText.get())
 
 
+
+def ExcelControllerExport(path: str):
+
+    cont = ExcelController()
+
+    m0 = cont.import_excel(path)
+
+
+    s = path[0: len(path) - 9]
+
+    cont.export_excel(s, m0)
+
+
+
 def fileOpen():
     filename = filedialog.askopenfilename(initialdir="/", title="Select file")
-    return filename
+    ExcelControllerExport(filename)
 
 
 importButton = tk.Button(matrixFrame, text="Import CSV", height=2, width=11,
@@ -383,6 +397,9 @@ def makeWithSliderMax():
     print(str(mUpdater.getIterations()))
     cm = makeListofColorMatrix(mUpdater.getIterations())
     print("length is " + str(len(cm)))
+
+
+
 
 
 
