@@ -28,8 +28,8 @@ class MatrixUpdater:
         i = 0
 
         for i in range(self.iterations):
-            toadd = Matrix("M" + str(i +1), 10, 10, 0, 1, [], [], [])
-            print(i)
+            toadd = Matrix("M" + str(i +1), 0, 0, 0, 0, [], [], [])
+            #print(i)
 
             if i != 0:
 
@@ -44,19 +44,16 @@ class MatrixUpdater:
 
                 #self.states.append(self.makeStates(self.coppyMatrix(self.states[i-1]
                  #                                                   , Matrix("m" + str(i), 10, 10, 0, 1, [], [], []))))
-
-
-
         tes = 0
 
-        while tes < self.iterations:
-
-            print(self.states[tes])
-
-            print(self.states[tes].name)
-
-            print(self.states[tes].p1Weights)
-            tes+=1
+        # while tes < self.iterations:
+        #
+        #     print(self.states[tes])
+        #
+        #     print(self.states[tes].name)
+        #
+        #     print(self.states[tes].p1Weights)
+        #     tes+=1
 
     # create matrix depending on inputted matrix
     def coppyMatrix(self, m1: Matrix, m2: Matrix):
@@ -69,7 +66,7 @@ class MatrixUpdater:
         m2.setDelta(m1.getDelta())
 
         newl2 = copy.deepcopy(m1.getL2())
-        print(newl2)
+        #print(newl2)
         m2.setL2(newl2)
 
 
@@ -131,8 +128,6 @@ class MatrixUpdater:
             #print(m1.l2[0][0].getMin())
 
             #for l in m1.l2:
-                #for c in l:
-                    #print(c.getMin())
 
             p1w = 0
             p2w = 0
@@ -147,7 +142,6 @@ class MatrixUpdater:
 
                     # print(m1.l2[x][y].getMin())
                     if (m1.l2[x][y].getMin() < v) and (m1.l2[x][y].getMax() > v):
-                        print(m1.l2[x][y].getMin() < v) and (m1.l2[x][y].getMax() > v)
 
                         p1w = m1.p1Weights[x] + m1.l2[x][y].getP1Strat()
                         p2w = m1.p2Weights[y] + m1.l2[x][y].getP2Strat()
@@ -170,7 +164,7 @@ class MatrixUpdater:
                 r += 1
 
             m1.p1Weights[xplace] = p1w
-            m1.p1Weights[yplace] = p2w
+            m1.p2Weights[yplace] = p2w
 
         else: #if u < e1:
 
@@ -261,6 +255,11 @@ class MatrixUpdater:
     def getIterations(self):
 
         return self.iterations
+
+    # get iterations
+    def setIterations(self, i: int):
+
+        self.iterations = i
 
     # get startState matrix
     def getStartState(self):

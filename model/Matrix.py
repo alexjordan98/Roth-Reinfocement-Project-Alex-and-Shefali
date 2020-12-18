@@ -70,13 +70,10 @@ class Matrix:
 
         i = 0
 
-
         while i < self.rows:
             j = 0
-            #print(i)
 
             while j < self.columns:
-                #print(self.l2)
 
 
                 p1prob = self.p1Weights[i] / totalP1
@@ -85,10 +82,8 @@ class Matrix:
                 endprob = p1prob * p2prob
 
 
-                #print(endprob)
 
                 self.l2[i][j].setProb(endprob)
-                #print(self.l2[i][j].getProb())
 
                 j+=1
             i+=1
