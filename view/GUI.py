@@ -2,8 +2,6 @@ import tkinter as tk
 from tkinter import filedialog, CENTER, NW, HORIZONTAL
 from tkinter.ttk import Progressbar
 
-from PIL import ImageTk, Image
-
 from colour import Color
 from Controler.ExcelController import ExcelController
 from model.MatrixUpdater import MatrixUpdater
@@ -11,8 +9,8 @@ from model.Matrix import Matrix
 from model.Cell import Cell
 
 # Some important variables
-l1 = []
 l2 = []
+l1 = []
 updaterList = []
 m4 = Matrix("m0", 0, 0, 0, 0, [], l1, l2)
 mUpdater = MatrixUpdater(10, updaterList)
@@ -24,18 +22,6 @@ heightMap = 500
 widthMap = 500
 
 canvas = tk.Canvas(root, height=height, width=width)
-
-# legend for heat map
-global img
-scalePath = "/Users/shefalisingh/Desktop/phil_2001_python/Roth-Reinfocement-Project-Alex-and" \
-            "-Shefali/view/scalelegend.jpeg"
-img = Image.open(scalePath)
-imgResize = img.resize((200, 400), Image.ANTIALIAS)
-legend = ImageTk.PhotoImage(imgResize)
-label1 = tk.Label(image=legend)
-label1.place(relx=.5, rely=.2)
-
-label1.image = legend
 
 # text area
 
